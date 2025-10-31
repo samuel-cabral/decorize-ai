@@ -111,21 +111,23 @@ export function DecorizeFlow() {
   }, [resultImageUrl]);
 
   return (
-    <>
+    <div className="space-y-6">
       {error && (
-        <Card className="mb-6 border-destructive bg-destructive/10">
+        <Card className="border-destructive/50 bg-gradient-to-r from-destructive/10 via-destructive/5 to-transparent shadow-lg animate-in">
           <CardContent className="pt-6">
-            <p className="text-sm text-destructive">{error}</p>
+            <p className="text-sm font-medium text-destructive">{error}</p>
           </CardContent>
         </Card>
       )}
 
       {step === "upload" && (
-        <Card>
+        <Card className="border-2 shadow-xl bg-gradient-to-br from-card via-card to-card/50 animate-in">
           <CardHeader>
-            <CardTitle>Passo 1: Envie uma foto do ambiente</CardTitle>
+            <CardTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Passo 1: Envie uma foto do ambiente
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <ImageUpload
               onImageSelect={handleImageSelect}
               onImageRemove={handleImageRemove}
@@ -136,6 +138,8 @@ export function DecorizeFlow() {
               <Button
                 onClick={handleContinueFromUpload}
                 disabled={!selectedImage}
+                className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                size="lg"
               >
                 Continuar
               </Button>
@@ -145,10 +149,12 @@ export function DecorizeFlow() {
       )}
 
       {step === "select" && (
-        <div className="space-y-6">
-          <Card>
+        <div className="space-y-6 animate-in">
+          <Card className="border-2 shadow-xl bg-gradient-to-br from-card via-card to-card/50">
             <CardHeader>
-              <CardTitle>Passo 2: Selecione os estilos de decoração</CardTitle>
+              <CardTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                Passo 2: Selecione os estilos de decoração
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <StyleSelector
@@ -158,12 +164,18 @@ export function DecorizeFlow() {
             </CardContent>
           </Card>
           <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setStep("upload")}>
+            <Button
+              variant="outline"
+              onClick={() => setStep("upload")}
+              className="transition-all duration-200 hover:scale-105"
+            >
               Voltar
             </Button>
             <Button
               onClick={handleGeneratePreview}
               disabled={selectedStyles.length === 0}
+              className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
+              size="lg"
             >
               Gerar Preview
             </Button>
@@ -172,27 +184,32 @@ export function DecorizeFlow() {
       )}
 
       {step === "processing" && (
-        <Card>
-          <CardContent>
+        <Card className="border-2 shadow-xl bg-gradient-to-br from-card via-card to-card/50 animate-in">
+          <CardContent className="py-12">
             <LoadingSpinner message="Gerando preview da decoração..." />
           </CardContent>
         </Card>
       )}
 
       {step === "result" && resultImageUrl && previewUrl && (
-        <div className="space-y-6">
+        <div className="space-y-6 animate-in">
           <PreviewResult
             originalImageUrl={previewUrl}
             resultImageUrl={resultImageUrl}
             onDownload={handleDownload}
           />
           <div className="flex justify-center">
-            <Button onClick={handleReset} variant="outline">
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              size="lg"
+              className="transition-all duration-200 hover:scale-105"
+            >
               Decorar Outro Ambiente
             </Button>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

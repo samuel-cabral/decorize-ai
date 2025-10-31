@@ -1,4 +1,29 @@
+# Decorize AI
+
+Projeto para ajudar pessoas a visualizar como seus ambientes ficarão decorados usando diferentes estilos através de inteligência artificial.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Configuração
+
+### Variáveis de Ambiente
+
+1. Copie o arquivo `.env.example` para `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Obtenha sua API key do Google AI Studio:
+   - Acesse: https://aistudio.google.com/
+   - Faça login com sua conta Google
+   - Clique em "Get API Key" no painel de navegação
+   - Crie uma nova chave de API associada a um projeto do Google Cloud
+   - ⚠️ **Nota:** O uso da API requer ativação de cobrança no projeto Google Cloud
+
+3. Adicione no arquivo `.env.local`:
+   ```
+   GOOGLE_API_KEY=sua_chave_api_aqui
+   ```
 
 ## Getting Started
 

@@ -1,4 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { generateDecoration } from "@/lib/ai/generate-decoration";
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,33 +31,65 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Simular processamento (delay de 2-3 segundos)
-    await new Promise((resolve) =>
-      setTimeout(resolve, 2000 + Math.random() * 1000),
-    );
+    // Verificar se a API key está configurada
+    if (!process.env.GOOGLE_API_KEY) {
+      return NextResponse.json(
+        {
+          error:
+            "API key não configurada. Configure GOOGLE_API_KEY no arquivo .env.local",
+        },
+        { status: 500 },
+      );
+    }
 
-    // Para MVP: converter a imagem para base64 e retornar
-    // Em produção, aqui seria feita a integração com API de IA
-    const arrayBuffer = await image.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const base64Image = buffer.toString("base64");
-    const mimeType = image.type;
-    const dataUrl = `data:${mimeType};base64,${base64Image}`;
-
-    // Simular processamento aplicando um filtro simples via canvas
-    // Por enquanto, retornamos a imagem original
-    // TODO: Integrar com API de IA real para processamento de imagem
+    // Gerar decoração usando IA
+    // O Google Nano Banana retorna a imagem já em base64
+    const generatedImageDataUrl = await generateDecoration({
+      imageFile: image,
+      styleIds: selectedStyles,
+    });
 
     return NextResponse.json({
       success: true,
-      imageUrl: dataUrl,
+      imageUrl: generatedImageDataUrl,
       styles: selectedStyles,
-      message: "Preview gerado com sucesso (modo mock)",
+      message: "Preview gerado com sucesso",
     });
   } catch (error) {
     console.error("Erro ao processar preview:", error);
+
+    // Mensagens de erro mais específicas
+    if (error instanceof Error) {
+      if (error.message.includes("API token")) {
+        return NextResponse.json(
+          {
+            error:
+              "Configuração da API: " +
+              error.message +
+              ". Verifique o arquivo .env.local",
+          },
+          { status: 500 },
+        );
+      }
+
+      if (error.message.includes("timeout") || error.message.includes("time")) {
+        return NextResponse.json(
+          {
+            error:
+              "O processamento está demorando mais que o esperado. Tente novamente.",
+          },
+          { status: 504 },
+        );
+      }
+
+      return NextResponse.json(
+        { error: `Erro ao processar a imagem: ${error.message}` },
+        { status: 500 },
+      );
+    }
+
     return NextResponse.json(
-      { error: "Erro ao processar a imagem" },
+      { error: "Erro desconhecido ao processar a imagem" },
       { status: 500 },
     );
   }
