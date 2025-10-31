@@ -70,4 +70,60 @@ export const decorationStyles: DecorationStyle[] = [
     emoji: "🌺",
     color: "bg-pink-400",
   },
+  {
+    id: "africano",
+    name: "Africano",
+    description:
+      "Padrões tribais, cores terrosas, artefatos artesanais e texturas naturais",
+    emoji: "🦁",
+    color: "bg-orange-800",
+  },
+  {
+    id: "japones",
+    name: "Japonês",
+    description:
+      "Design zen, elementos naturais, cores neutras e minimalismo tradicional",
+    emoji: "🗾",
+    color: "bg-red-500",
+  },
+  {
+    id: "chines",
+    name: "Chinês",
+    description:
+      "Móveis elegantes em madeira, elementos de feng shui e cores tradicionais",
+    emoji: "🏮",
+    color: "bg-red-600",
+  },
+  {
+    id: "indiano",
+    name: "Indiano",
+    description:
+      "Cores vibrantes, tecidos ricos, padrões elaborados e detalhes ornamentais",
+    emoji: "🪔",
+    color: "bg-yellow-500",
+  },
+  {
+    id: "marroquino",
+    name: "Marroquino",
+    description:
+      "Azulejos coloridos, lanternas decorativas, almofadas e tapetes tradicionais",
+    emoji: "🕌",
+    color: "bg-amber-600",
+  },
+  {
+    id: "mexicano",
+    name: "Mexicano",
+    description:
+      "Cores vivas, tecidos artesanais, cerâmica colorida e elementos folclóricos",
+    emoji: "🌮",
+    color: "bg-orange-500",
+  },
+  {
+    id: "mediterraneo",
+    name: "Mediterrâneo",
+    description:
+      "Azuis e brancos, texturas naturais, azulejos e inspiração costeira",
+    emoji: "🌊",
+    color: "bg-blue-400",
+  },
 ];

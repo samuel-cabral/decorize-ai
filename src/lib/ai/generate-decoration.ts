@@ -1,7 +1,11 @@
-import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { decorationStyles } from "../styles";
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "");
+// Biblioteca correta conforme documentação oficial:
+// https://ai.google.dev/gemini-api/docs/image-generation#javascript
+const ai = new GoogleGenAI({
+  apiKey: process.env.GOOGLE_API_KEY || "",
+});
 
 interface GenerateDecorationParams {
   imageFile: File;
@@ -27,6 +31,20 @@ const stylePromptMap: Record<string, string> = {
     "rustic design with rustic wood, natural textures, country charm, warm earth tones, cozy farmhouse style",
   bohemio:
     "bohemian style with vibrant colors, ethnic patterns, eclectic decoration, artistic and free-spirited",
+  africano:
+    "African style with tribal patterns, earthy colors, handcrafted artifacts, natural textures, warm terracotta and brown tones",
+  japones:
+    "Japanese style with zen design, natural elements, neutral colors, traditional minimalism, tatami mats, shoji screens, clean lines",
+  chines:
+    "Chinese style with elegant wooden furniture, feng shui elements, traditional colors like red and gold, ornate details, calligraphy art",
+  indiano:
+    "Indian style with vibrant colors, rich fabrics, elaborate patterns, ornamental details, silk textiles, traditional rugs, intricate designs",
+  marroquino:
+    "Moroccan style with colorful tiles, decorative lanterns, traditional cushions, patterned rugs, arched doorways, rich textures, warm colors",
+  mexicano:
+    "Mexican style with vibrant colors, handcrafted textiles, colorful ceramics, folkloric elements, traditional patterns, warm and inviting atmosphere",
+  mediterraneo:
+    "Mediterranean style with blues and whites, natural textures, decorative tiles, coastal inspiration, rustic charm, terracotta accents, light and airy",
 };
 
 function buildPrompt(styleIds: string[]): string {
@@ -62,83 +80,53 @@ export async function generateDecoration({
     // Construir prompt baseado nos estilos
     const prompt = buildPrompt(styleIds);
 
-    // IMPORTANTE: O Google Gemini via API padrão NÃO gera imagens!
-    // A API padrão apenas analisa imagens e gera texto, não cria novas imagens.
-    // 
-    // O "Nano Banana" (Gemini 2.5 Flash Image) está disponível apenas via:
-    // - Firebase AI Logic (requer plano Blaze)
-    // - Não via API padrão do @google/generative-ai
-    //
-    // Este código tenta usar modelos disponíveis, mas provavelmente falhará
-    // porque esses modelos não retornam imagens.
-    //
-    // Para geração de imagens real, considere usar:
-    // - Replicate (Flux, Stable Diffusion)
-    // - Hugging Face Inference API
-    // - Ou implementar Firebase AI Logic
-    const modelNames = [
-      "gemini-1.5-flash-latest",
-      "gemini-1.5-pro-latest",
-      "gemini-1.5-flash",
-      "gemini-pro",
+    // Usar a biblioteca @google/genai conforme documentação oficial:
+    // https://ai.google.dev/gemini-api/docs/image-generation#javascript
+    // Modelo: gemini-2.5-flash-image (Nano Banana)
+    // Image editing (text-and-image-to-image) conforme documentação
+
+    console.log("Gerando imagem decorada com Gemini 2.5 Flash Image...");
+
+    const contents = [
+      {
+        text: prompt,
+      },
+      {
+        inlineData: {
+          mimeType,
+          data: base64Image,
+        },
+      },
     ];
 
-    let lastError: Error | null = null;
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash-image",
+      contents,
+      config: {
+        imageConfig: {
+          aspectRatio: "4:3", // Manter proporção próxima da imagem original
+        },
+      },
+    });
 
-    for (const modelName of modelNames) {
-      try {
-        const model: GenerativeModel = genAI.getGenerativeModel({
-          model: modelName,
-        });
+    // Processar resposta conforme documentação
+    if (
+      !response.candidates ||
+      response.candidates.length === 0 ||
+      !response.candidates[0].content?.parts
+    ) {
+      throw new Error("Nenhuma imagem foi gerada pela IA");
+    }
 
-        // Gerar conteúdo com imagem e prompt
-        const result = await model.generateContent([
-          {
-            inlineData: {
-              data: base64Image,
-              mimeType,
-            },
-          },
-          prompt,
-        ]);
-
-        const response = await result.response;
-
-        // Verificar se a resposta contém imagem
-        if (response.candidates && response.candidates.length > 0) {
-          const candidate = response.candidates[0];
-
-          if (candidate.content && candidate.content.parts) {
-            // Buscar a parte que contém a imagem
-            const imagePart = candidate.content.parts.find(
-              (part) => part.inlineData,
-            );
-
-            if (imagePart && imagePart.inlineData) {
-              // Retornar a imagem em base64
-              return `data:${imagePart.inlineData.mimeType};base64,${imagePart.inlineData.data}`;
-            }
-          }
-        }
-
-        // Se chegou aqui, o modelo não retornou imagem
-        // Tenta próximo modelo
-        console.log(`Modelo ${modelName} não retornou imagem, tentando próximo...`);
-      } catch (error) {
-        console.log(`Erro com modelo ${modelName}:`, error);
-        lastError =
-          error instanceof Error ? error : new Error(String(error));
-        // Continua para o próximo modelo
+    // Buscar a parte que contém a imagem
+    for (const part of response.candidates[0].content.parts) {
+      if (part.inlineData?.data) {
+        // Retornar a imagem em base64 conforme documentação
+        return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
       }
     }
 
-    // Se nenhum modelo funcionou, informa sobre a limitação
-    throw new Error(
-      "A API padrão do Google Gemini não suporta geração de imagens. " +
-        "Os modelos do Gemini apenas analisam imagens e geram texto. " +
-        "Para geração de imagens, é necessário usar Firebase AI Logic ou outra API como Replicate/Hugging Face. " +
-        `Último erro: ${lastError?.message || "Desconhecido"}`,
-    );
+    throw new Error("Imagem não encontrada na resposta da IA");
   } catch (error) {
     console.error("Erro ao gerar decoração:", error);
     if (error instanceof Error) {

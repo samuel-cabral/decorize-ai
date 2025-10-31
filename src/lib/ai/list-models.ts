@@ -13,7 +13,7 @@ export async function listAvailableModels(): Promise<string[]> {
 
   try {
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    
+
     // Tentar listar modelos via API
     // Nota: A API pode não suportar listagem direta, mas podemos tentar modelos conhecidos
     const knownModels = [
@@ -47,4 +47,3 @@ export async function listAvailableModels(): Promise<string[]> {
     throw error;
   }
 }
-
