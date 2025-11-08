@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, MapPin, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -130,18 +131,20 @@ export default async function DashboardPage() {
 									key={project.id}
 									className="overflow-hidden hover:shadow-lg transition-shadow"
 								>
-									<div className="aspect-video relative bg-muted">
-										{project.result_image_url ? (
-											<img
-												src={project.result_image_url}
-												alt={project.name}
-												className="object-cover w-full h-full"
-											/>
-										) : (
-											<div className="flex items-center justify-center h-full">
-												<Sparkles className="h-12 w-12 text-muted-foreground" />
-											</div>
-										)}
+								<div className="aspect-video relative bg-muted">
+									{project.result_image_url ? (
+										<Image
+											src={project.result_image_url}
+											alt={project.name}
+											fill
+											className="object-cover"
+											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+										/>
+									) : (
+										<div className="flex items-center justify-center h-full">
+											<Sparkles className="h-12 w-12 text-muted-foreground" />
+										</div>
+									)}
 										{project.status === "processing" && (
 											<div className="absolute inset-0 bg-black/50 flex items-center justify-center">
 												<div className="text-white text-sm font-medium">
