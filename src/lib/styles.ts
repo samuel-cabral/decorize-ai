@@ -126,4 +126,20 @@ export const decorationStyles: DecorationStyle[] = [
     emoji: "🌊",
     color: "bg-blue-400",
   },
+  {
+    id: "boho",
+    name: "Boho",
+    description:
+      "Estilo boêmio moderno com plantas, texturas naturais e elementos vintage",
+    emoji: "🌿",
+    color: "bg-emerald-500",
+  },
+  {
+    id: "tropical",
+    name: "Tropical",
+    description:
+      "Folhagens exuberantes, cores vivas, bambu e inspiração de selva urbana",
+    emoji: "🌴",
+    color: "bg-green-600",
+  },
 ];
