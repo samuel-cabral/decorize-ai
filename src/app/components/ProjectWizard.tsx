@@ -63,27 +63,21 @@ export function ProjectWizard() {
     setError(null);
   }, []);
 
-  const handleImageUpload = useCallback(
-    (roomId: string, file: File | null) => {
-      setRoomsData((prev) => ({
-        ...prev,
-        [roomId]: { ...prev[roomId], roomId, image: file, styles: [] },
-      }));
-      setError(null);
-    },
-    [],
-  );
+  const handleImageUpload = useCallback((roomId: string, file: File | null) => {
+    setRoomsData((prev) => ({
+      ...prev,
+      [roomId]: { ...prev[roomId], roomId, image: file, styles: [] },
+    }));
+    setError(null);
+  }, []);
 
-  const handleStylesChange = useCallback(
-    (roomId: string, styles: string[]) => {
-      setRoomsData((prev) => ({
-        ...prev,
-        [roomId]: { ...prev[roomId], styles },
-      }));
-      setError(null);
-    },
-    [],
-  );
+  const handleStylesChange = useCallback((roomId: string, styles: string[]) => {
+    setRoomsData((prev) => ({
+      ...prev,
+      [roomId]: { ...prev[roomId], styles },
+    }));
+    setError(null);
+  }, []);
 
   const handleContinueFromPlace = useCallback(() => {
     if (!selectedPlace) {
@@ -222,7 +216,9 @@ export function ProjectWizard() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Nome do Projeto</label>
+              <label htmlFor="projectName" className="text-sm font-medium">
+                Nome do Projeto
+              </label>
               <input
                 type="text"
                 value={projectName}
@@ -365,7 +361,9 @@ export function ProjectWizard() {
                 progresso na página do projeto.
               </p>
               <Button
-                onClick={() => (window.location.href = `/projects/${projectId}`)}
+                onClick={() =>
+                  (window.location.href = `/projects/${projectId}`)
+                }
                 className="bg-gradient-to-r from-primary to-secondary"
                 size="lg"
               >
@@ -378,4 +376,3 @@ export function ProjectWizard() {
     </div>
   );
 }
-

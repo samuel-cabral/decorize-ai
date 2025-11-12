@@ -31,6 +31,8 @@ const stylePromptMap: Record<string, string> = {
     "rustic design with rustic wood, natural textures, country charm, warm earth tones, cozy farmhouse style",
   bohemio:
     "bohemian style with vibrant colors, ethnic patterns, eclectic decoration, artistic and free-spirited",
+  boho:
+    "boho chic interior with layered textures, natural fibers, indoor plants, warm earthy palette, artisanal decor, relaxed and inviting atmosphere",
   africano:
     "African style with tribal patterns, earthy colors, handcrafted artifacts, natural textures, warm terracotta and brown tones",
   japones:

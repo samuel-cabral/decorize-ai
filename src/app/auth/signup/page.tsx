@@ -15,70 +15,69 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
   const benefits = [
     {
       title: "Projetos ilimitados",
-      description: "Crie quantos projetos quiser e organize suas ideias em um só lugar.",
+      description: "Experimente quantas ideias quiser para cada cômodo da sua casa.",
     },
     {
-      title: "IA de última geração",
-      description: "Tecnologia avançada que aprende com suas preferências e estilo.",
+      title: "IA intuitiva",
+      description: "Tecnologia que aprende seu estilo e sugere decorações personalizadas.",
     },
     {
-      title: "Suporte premium",
-      description: "Equipe dedicada para ajudar você a tirar o máximo da plataforma.",
+      title: "Fácil de usar",
+      description: "Interface simples para você visualizar e comparar diferentes estilos.",
     },
   ];
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background/95 to-secondary/30">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-20 top-24 h-72 w-72 rounded-full bg-primary/25 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-secondary/25 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08)_0,transparent_60%)]" />
+        <div className="absolute -left-20 top-24 h-96 w-96 rounded-full bg-primary/8 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-[30rem] w-[30rem] rounded-full bg-accent/30 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto grid min-h-screen w-full max-w-6xl items-center gap-12 px-6 py-10 lg:grid-cols-[1.1fr_1fr] lg:px-12">
-        <section className="relative hidden overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-secondary/20 via-background/70 to-background/90 p-12 shadow-2xl lg:flex lg:flex-col">
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08)_0,rgba(255,255,255,0)_55%)]" />
-          <div className="absolute left-16 top-16 h-28 w-28 rounded-full border border-white/20" />
-          <div className="absolute right-10 top-24 h-20 w-20 rounded-full bg-primary/30 backdrop-blur-xl" />
-          <div className="absolute -bottom-10 right-24 h-36 w-36 rotate-12 rounded-3xl border border-white/15" />
+      <div className="relative mx-auto grid min-h-screen w-full max-w-7xl items-center gap-16 px-6 py-12 lg:grid-cols-2 lg:px-16">
+        <section className="relative hidden lg:flex lg:flex-col lg:gap-12">
+          <div className="relative rounded-3xl bg-gradient-to-br from-accent/40 via-accent/20 to-transparent p-12 backdrop-blur-sm border border-primary/10 shadow-sm">
+            <div className="absolute -top-6 -right-6 h-32 w-32 rounded-full bg-primary/10 blur-2xl" />
+            <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-accent/20 blur-2xl" />
 
-          <div className="relative">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/80">
-              <Rocket className="h-4 w-4 text-white" />
-              Comece gratuitamente
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                <Rocket className="h-4 w-4" />
+                Comece gratuitamente
+              </div>
+              <h2 className="mt-8 text-4xl font-semibold leading-tight text-foreground font-[family-name:var(--font-display)]">
+                Construa o lar que você sempre imaginou.
+              </h2>
+              <p className="mt-6 text-base text-muted-foreground leading-relaxed max-w-lg">
+                Junte-se a milhares de pessoas que estão transformando suas casas em espaços cheios de significado, conforto e beleza. Seu lar perfeito está a poucos cliques de distância.
+              </p>
             </div>
-            <h2 className="mt-8 text-4xl font-semibold leading-tight text-white">
-              Dê vida aos seus projetos de decoração com inteligência artificial.
-            </h2>
-            <p className="mt-4 max-w-md text-base text-white/70">
-              Junte-se a centenas de designers e arquitetos que já estão usando a plataforma para criar ambientes incríveis de forma mais rápida e eficiente.
-            </p>
           </div>
 
-          <ul className="relative mt-10 space-y-6">
+          <ul className="relative space-y-5">
             {benefits.map((item) => (
-              <li key={item.title} className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/25">
-                  <Check className="h-5 w-5 text-white" />
+              <li key={item.title} className="flex gap-4 rounded-2xl bg-card p-6 shadow-sm border border-border/50">
+                <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                  <Check className="h-5 w-5 text-primary" />
                 </span>
                 <div>
-                  <h3 className="text-white/90">{item.title}</h3>
-                  <p className="text-sm text-white/65">{item.description}</p>
+                  <h3 className="font-medium text-foreground">{item.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.description}</p>
                 </div>
               </li>
             ))}
           </ul>
 
-          <div className="relative mt-auto flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+          <div className="relative flex flex-col gap-4 rounded-2xl bg-primary/5 p-8 border border-primary/10">
             <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-white/50">
+              <p className="text-xs uppercase tracking-wider text-primary font-semibold">
                 Gratuito para começar
               </p>
-              <p className="mt-1 text-white/90">
-                Sem cartão de crédito. Cancele quando quiser.
+              <p className="mt-2 text-foreground/90 leading-relaxed">
+                Comece hoje, sem compromisso.
               </p>
             </div>
-            <Button asChild className="group bg-white text-background hover:bg-white/90">
+            <Button asChild className="group w-full bg-primary hover:bg-primary/90 text-white shadow-md">
               <Link href="/auth/login">
                 Já tenho conta
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -87,33 +86,35 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
           </div>
         </section>
 
-        <section className="relative mx-auto flex w-full max-w-md flex-col gap-10">
-          <div className="flex flex-col gap-3 text-center lg:text-left">
-            <Link href="/" className="inline-flex items-center justify-center gap-2 text-primary lg:justify-start">
+        <section className="relative mx-auto flex w-full max-w-md flex-col gap-12">
+          <div className="flex flex-col gap-4 text-center lg:text-left">
+            <Link href="/" className="inline-flex items-center justify-center gap-2.5 text-primary lg:justify-start">
               <Sparkles className="h-7 w-7" />
-              <span className="text-base font-semibold tracking-wide">Decorize AI</span>
+              <span className="text-lg font-semibold tracking-tight">Decorize AI</span>
             </Link>
-            <h1 className="text-3xl font-semibold text-foreground">Crie sua conta</h1>
-            <p className="text-sm text-muted-foreground">
-              Comece a transformar seus ambientes com o poder da inteligência artificial.
+            <h1 className="text-4xl font-semibold text-foreground font-[family-name:var(--font-display)] leading-tight">
+              Crie sua conta
+            </h1>
+            <p className="text-muted-foreground leading-relaxed">
+              Comece a decorar sua casa do jeito que você sempre sonhou.
             </p>
           </div>
 
-          <Card className="border border-white/20 bg-background/90 shadow-2xl backdrop-blur-xl">
-            <CardHeader className="space-y-1 text-center lg:text-left">
-              <CardTitle className="text-2xl font-semibold">Cadastro gratuito</CardTitle>
-              <p className="text-sm text-muted-foreground">
-                Preencha os dados abaixo para começar.
+          <Card className="border border-border/50 bg-card shadow-lg">
+            <CardHeader className="space-y-2 text-center lg:text-left pb-6">
+              <CardTitle className="text-2xl font-semibold font-[family-name:var(--font-display)]">Cadastro gratuito</CardTitle>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                É rápido, gratuito e você pode começar agora mesmo.
               </p>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               {errorMessage ? (
-                <div className="mb-5 rounded-xl border border-destructive/40 bg-destructive/15 px-4 py-3 text-sm text-destructive">
+                <div className="mb-6 rounded-xl border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
                   {decodeURIComponent(errorMessage)}
                 </div>
               ) : null}
-              <form action={signup} className="space-y-5">
-                <div className="space-y-2">
+              <form action={signup} className="space-y-6">
+                <div className="space-y-2.5">
                   <label
                     htmlFor="full_name"
                     className="text-sm font-medium text-foreground"
@@ -125,12 +126,12 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
                     name="full_name"
                     type="text"
                     required
-                    className="flex h-11 w-full rounded-xl border border-white/20 bg-background/60 px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary transition-colors"
                     placeholder="João Silva"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <label
                     htmlFor="email"
                     className="text-sm font-medium text-foreground"
@@ -142,12 +143,12 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
                     name="email"
                     type="email"
                     required
-                    className="flex h-11 w-full rounded-xl border border-white/20 bg-background/60 px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                    placeholder="voce@decorize.ai"
+                    className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary transition-colors"
+                    placeholder="seu@email.com"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <label
                     htmlFor="password"
                     className="text-sm font-medium text-foreground"
@@ -160,7 +161,7 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
                     type="password"
                     required
                     minLength={6}
-                    className="flex h-11 w-full rounded-xl border border-white/20 bg-background/60 px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary transition-colors"
                     placeholder="••••••••"
                   />
                   <p className="text-xs text-muted-foreground">
@@ -168,20 +169,20 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
                   </p>
                 </div>
 
-                <div className="flex items-start gap-2 text-sm">
+                <div className="flex items-start gap-2.5 text-sm">
                   <input
                     type="checkbox"
                     id="terms"
                     required
-                    className="mt-0.5 h-4 w-4 rounded border border-white/20 bg-background/60 text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="mt-0.5 h-4 w-4 rounded border border-input bg-background text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 transition-colors cursor-pointer"
                   />
-                  <label htmlFor="terms" className="text-muted-foreground">
+                  <label htmlFor="terms" className="text-muted-foreground leading-relaxed cursor-pointer">
                     Aceito os{" "}
-                    <Link href="/terms" className="font-medium text-primary hover:opacity-80">
+                    <Link href="/terms" className="font-medium text-primary hover:text-primary/80 transition-colors">
                       termos de uso
                     </Link>{" "}
                     e{" "}
-                    <Link href="/privacy" className="font-medium text-primary hover:opacity-80">
+                    <Link href="/privacy" className="font-medium text-primary hover:text-primary/80 transition-colors">
                       política de privacidade
                     </Link>
                   </label>
@@ -190,17 +191,17 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full rounded-xl bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30 hover:opacity-95"
+                  className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all"
                 >
                   Criar Conta
                 </Button>
               </form>
 
-              <div className="mt-8 space-y-4">
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="mt-8 space-y-5">
+                <div className="h-px w-full bg-border" />
                 <div className="text-center text-sm">
                   <span className="text-muted-foreground">Já tem uma conta? </span>
-                  <Link href="/auth/login" className="font-medium text-primary hover:opacity-80">
+                  <Link href="/auth/login" className="font-semibold text-primary hover:text-primary/80 transition-colors">
                     Fazer login
                   </Link>
                 </div>

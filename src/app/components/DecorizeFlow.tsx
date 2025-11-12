@@ -111,23 +111,26 @@ export function DecorizeFlow() {
   }, [resultImageUrl]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {error && (
-        <Card className="border-destructive/50 bg-gradient-to-r from-destructive/10 via-destructive/5 to-transparent shadow-lg animate-in">
-          <CardContent className="pt-6">
-            <p className="text-sm font-medium text-destructive">{error}</p>
+        <Card className="border border-destructive/50 bg-destructive/5 shadow-md animate-in">
+          <CardContent className="py-4 px-6">
+            <p className="text-sm font-medium text-destructive leading-relaxed">{error}</p>
           </CardContent>
         </Card>
       )}
 
       {step === "upload" && (
-        <Card className="border-2 shadow-xl bg-gradient-to-br from-card via-card to-card/50 animate-in">
-          <CardHeader>
-            <CardTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+        <Card className="shadow-lg animate-in">
+          <CardHeader className="pb-6">
+            <CardTitle className="text-2xl md:text-3xl font-[family-name:var(--font-display)]">
               Passo 1: Envie uma foto do ambiente
             </CardTitle>
+            <p className="text-muted-foreground leading-relaxed mt-2">
+              Escolha uma imagem do espaço que você quer decorar
+            </p>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-8">
             <ImageUpload
               onImageSelect={handleImageSelect}
               onImageRemove={handleImageRemove}
@@ -138,7 +141,6 @@ export function DecorizeFlow() {
               <Button
                 onClick={handleContinueFromUpload}
                 disabled={!selectedImage}
-                className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 size="lg"
               >
                 Continuar
@@ -149,12 +151,15 @@ export function DecorizeFlow() {
       )}
 
       {step === "select" && (
-        <div className="space-y-6 animate-in">
-          <Card className="border-2 shadow-xl bg-gradient-to-br from-card via-card to-card/50">
-            <CardHeader>
-              <CardTitle className="text-2xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+        <div className="space-y-8 animate-in">
+          <Card className="shadow-lg">
+            <CardHeader className="pb-6">
+              <CardTitle className="text-2xl md:text-3xl font-[family-name:var(--font-display)]">
                 Passo 2: Selecione os estilos de decoração
               </CardTitle>
+              <p className="text-muted-foreground leading-relaxed mt-2">
+                Escolha um ou mais estilos para personalizar seu ambiente
+              </p>
             </CardHeader>
             <CardContent>
               <StyleSelector
@@ -163,18 +168,17 @@ export function DecorizeFlow() {
               />
             </CardContent>
           </Card>
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
             <Button
               variant="outline"
               onClick={() => setStep("upload")}
-              className="transition-all duration-200 hover:scale-105"
+              size="lg"
             >
               Voltar
             </Button>
             <Button
               onClick={handleGeneratePreview}
               disabled={selectedStyles.length === 0}
-              className="bg-gradient-to-r from-primary to-secondary transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
               size="lg"
             >
               Gerar Preview
@@ -184,15 +188,15 @@ export function DecorizeFlow() {
       )}
 
       {step === "processing" && (
-        <Card className="border-2 shadow-xl bg-gradient-to-br from-card via-card to-card/50 animate-in">
-          <CardContent className="py-12">
+        <Card className="shadow-lg animate-in">
+          <CardContent className="py-16">
             <LoadingSpinner message="Gerando preview da decoração..." />
           </CardContent>
         </Card>
       )}
 
       {step === "result" && resultImageUrl && previewUrl && (
-        <div className="space-y-6 animate-in">
+        <div className="space-y-8 animate-in">
           <PreviewResult
             originalImageUrl={previewUrl}
             resultImageUrl={resultImageUrl}
@@ -203,7 +207,6 @@ export function DecorizeFlow() {
               onClick={handleReset}
               variant="outline"
               size="lg"
-              className="transition-all duration-200 hover:scale-105"
             >
               Decorar Outro Ambiente
             </Button>

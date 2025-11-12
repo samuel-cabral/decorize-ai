@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 190 100% 50%;
-  --primary-foreground: 240 10% 3.9%;
-  --secondary: 280 80% 60%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 180 100% 50%;
-  --accent-foreground: 240 10% 3.9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 190 100% 50%;
-  --radius: 0.75rem;
+  --background: 35 30% 96%;
+  --foreground: 30 10% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 30 10% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 30 10% 15%;
+  --primary: 25 75% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 20% 85%;
+  --secondary-foreground: 30 10% 20%;
+  --muted: 35 20% 90%;
+  --muted-foreground: 30 8% 45%;
+  --accent: 20 60% 92%;
+  --accent-foreground: 30 10% 20%;
+  --destructive: 0 70% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 30 15% 88%;
+  --input: 30 15% 88%;
+  --ring: 25 75% 55%;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: 30 20% 12%;
+  --foreground: 30 15% 92%;
+  --card: 30 18% 15%;
+  --card-foreground: 30 15% 92%;
+  --popover: 30 18% 15%;
+  --popover-foreground: 30 15% 92%;
+  --primary: 25 70% 60%;
+  --primary-foreground: 30 20% 12%;
+  --secondary: 30 15% 25%;
+  --secondary-foreground: 30 15% 92%;
+  --muted: 30 15% 20%;
+  --muted-foreground: 30 10% 60%;
+  --accent: 20 30% 25%;
+  --accent-foreground: 30 15% 92%;
+  --destructive: 0 65% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 30 15% 22%;
+  --input: 30 15% 22%;
+  --ring: 25 70% 60%;
 }
 
 @theme inline {
@@ -43,20 +65,32 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-playfair);
 }
 
 body {
   background: linear-gradient(
-    135deg,
-    hsl(var(--background)) 0%,
-    hsl(240 10% 5%) 50%,
-    hsl(var(--background)) 100%
+    180deg,
+    hsl(35 40% 98%) 0%,
+    hsl(30 35% 95%) 50%,
+    hsl(35 40% 98%) 100%
   );
   background-attachment: fixed;
   color: hsl(var(--foreground));
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background: linear-gradient(
+    180deg,
+    hsl(30 20% 10%) 0%,
+    hsl(30 18% 8%) 50%,
+    hsl(30 20% 10%) 100%
+  );
 }
 
 @keyframes fade-in {
@@ -103,4 +137,68 @@ body {
 .gradient-animated {
   background-size: 200% 200%;
   animation: gradient-shift 3s ease infinite;
+}
+
+/* Smooth transitions for a cozy feel */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Display font utility class */
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+/* Warm glow effect for interactive elements */
+button:hover,
+a:hover {
+  transition-duration: 150ms;
+}
+
+/* Softer shadows for cards */
+.shadow-warm {
+  box-shadow: 0 4px 24px -4px hsl(var(--primary) / 0.12),
+              0 2px 12px -2px hsl(var(--foreground) / 0.08);
+}
+
+/* Custom scrollbar for modern look */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}
+
+/* Selection color */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--foreground));
+}
+
+/* Improved focus states */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
 }
