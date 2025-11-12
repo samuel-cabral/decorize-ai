@@ -67,27 +67,33 @@ export default function ProjectsPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-background">
-        <div className="fixed inset-0 -z-10 bg-gradient-to-br from-primary/5 via-secondary/5 to-transparent opacity-50" />
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute -left-20 top-24 h-96 w-96 rounded-full bg-primary/8 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-[30rem] w-[30rem] rounded-full bg-accent/30 blur-3xl" />
+        </div>
 
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+        <div className="container mx-auto px-6 py-12 max-w-7xl">
+          <div className="flex justify-between items-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-semibold text-primary font-[family-name:var(--font-display)]">
               Decorize AI
             </h1>
-            <Button variant="outline" onClick={handleSignOut}>
+            <Button variant="ghost" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Sair
             </Button>
           </div>
 
           {loading ? (
-            <div className="flex justify-center py-12">
+            <div className="flex justify-center py-20">
               <LoadingSpinner message="Carregando projetos..." />
             </div>
           ) : error ? (
-            <div className="text-center py-12">
-              <p className="text-destructive">{error}</p>
-              <Button onClick={loadProjects} className="mt-4">
+            <div className="text-center py-20">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-destructive/10 mx-auto mb-6">
+                <p className="text-destructive font-semibold">!</p>
+              </div>
+              <p className="text-destructive mb-6 text-lg">{error}</p>
+              <Button onClick={loadProjects} size="lg">
                 Tentar Novamente
               </Button>
             </div>
